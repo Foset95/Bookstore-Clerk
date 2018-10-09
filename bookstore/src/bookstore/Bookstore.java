@@ -163,7 +163,11 @@ public class Bookstore {
 			String strDelete = "delete from books "
 					+ "where id = " + id;
 			int countDeleted = stmt.executeUpdate(strDelete);
-			System.out.println(countDeleted + " book has been deleted.\n");
+			if(countDeleted == 1) {
+				System.out.println(countDeleted + " book has been deleted.\n");
+			} else {
+				System.out.println("No books have been deleted.\n");
+			}
 		} catch(SQLException ex) {
 			ex.printStackTrace();
 		}
@@ -244,10 +248,11 @@ public class Bookstore {
 		try {
 			if(rset.next()) {
 				while(rset.next()) {
+					int id = rset.getInt("id");
 					String title = rset.getString("Title");
 					String author = rset.getString("Author");
 					int qty = rset.getInt("Qty");
-					System.out.println("Title: " + title + "\nAuthor: " + author + "\nNumber in stock: " + qty + "\n");
+					System.out.println("ID: " + id + "\nTitle: " + title + "\nAuthor: " + author + "\nNumber in stock: " + qty + "\n");
 				}
 			} else {
 				System.out.println("No records for the entry could be found.\n");
